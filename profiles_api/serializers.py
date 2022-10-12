@@ -30,3 +30,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             instance.set_password(password) #set_password is used to hash password.
 
         return super().update(instance, validated_data) #Removed password from validated_data and added password hash to instance.
+
+class ProfileFeedItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProfileFeedItem
+        fields = ('id', 'user_profile', 'status_text', 'created_on')
+        extra_kwargs = {'user_profile' : {'read_only' : True}}
